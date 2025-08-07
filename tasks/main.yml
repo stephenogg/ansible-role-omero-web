@@ -1,14 +1,24 @@
 ---
 # tasks for omero-web
--
-- include: pre_tasks.yml
 
-- include: web-dependencies.yml
+- name: Include pre-tasks.yml
+  include_tasks:
+    file: pre_tasks.yml
 
-- include: web-install-py3.yml
+- name: Include web-dependencies.yml
+  include_tasks:
+    file: web-dependencies.yml
 
-- include: web-systemd.yml
+- name: Include web-install-py3.yml
+  include_tasks:
+    file: web-install-py3.yml
+
+- name: Include web-systemd.yml
+  include_tasks:
+    file: web-systemd.yml
   when: omero_web_systemd_setup
 
-- include: web-nginx.yml
+- name: Include web-nginx.yml
+  include_tasks:
+    file: web-nginx.yml
   when: omero_web_setup_nginx
