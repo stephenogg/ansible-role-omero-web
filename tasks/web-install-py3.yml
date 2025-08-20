@@ -12,7 +12,7 @@
 
 - name: omero web | is web symlink present
   become: true
-  stat:
+  ansible.builtin.stat:
     path: "{{ omero_web_omerodir }}"
   register: omero_web_symlink_st
 
@@ -26,14 +26,14 @@
 
 - name: omero web | remove symlink
   become: true
-  file:
+  ansible.builtin.file:
     path: "{{ omero_web_omerodir }}"
     state: absent
   when: omero_web_symlink_st.stat.exists and omero_web_symlink_st.stat.islnk
 
 - name: omero web | create OMERODIR readonly
   become: true
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     mode: 0755
@@ -47,7 +47,7 @@
 # TODO: Check is home directory location be modified for an upgrade?
 - name: omero web | create system user
   become: true
-  user:
+  ansible.builtin.user:
     name: "{{ omero_web_system_user }}"
     home: "{{ omero_web_omerodir }}/var"
     createhome: false
@@ -57,7 +57,7 @@
 
 - name: omero web | create OMERODIR writeable
   become: true
-  file:
+  ansible.builtin.file:
     path: "{{ omero_web_omerodir }}{{ item }}"
     state: directory
     owner: "{{ omero_web_system_user }}"
@@ -68,13 +68,13 @@
 
 - name: omero web | remove old configuration script
   become: true
-  file:
+  ansible.builtin.file:
     path: "{{ omero_web_basedir }}/config/omero-web-config-update.sh"
     state: absent
 
 - name: omero web | configuration 00-omero-web.omero
   become: true
-  template:
+  ansible.builtin.template:
     dest: "{{ omero_web_basedir }}/config/00-omero-web.omero"
     force: true
     src: 00-omero-web-omero.j2
@@ -85,7 +85,7 @@
 
 - name: omero web | add application web configuration
   become: true
-  template:
+  ansible.builtin.template:
     dest: "{{ omero_web_basedir }}/config/\
       {{ omero_web_apps_config_name }}.omero"
     force: true
@@ -149,7 +149,7 @@
 # Remembering to set OMERODIR everywhere is prone to error
 - name: omero web | create omero web wrapper
   become: true
-  template:
+  ansible.builtin.template:
     dest: "{{ omero_web_omero_command }}"
     src: bin-omero.j2
     mode: 0555

@@ -23,13 +23,13 @@
   when: selinux_enabled
 
 - name: omero web  | register pp file
-  stat:
+  ansible.builtin.stat:
     path: /tmp/django.pp
   register: pp_file_name
 
 - name: omero web | copy te file
   become: true
-  template:
+  ansible.builtin.template:
     dest: /tmp/django.te
     force: true
     src: django.te.j2
@@ -67,7 +67,7 @@
   when: not pp_file_name.stat.exists
 
 - name: omero web  | register mod file
-  stat:
+  ansible.builtin.stat:
     path: /tmp/django.mod
   register: mod_file_name
 
