@@ -159,7 +159,7 @@
 
 - name: omero web | selinux restorecon
   become: true
-  command: >-
+  ansible.builtin.command: >-
     /usr/sbin/restorecon -R -v
     {{ ansible_check_mode | ternary('-n', '') }}
     {{ omero_web_basedir }}/OMERO.web
