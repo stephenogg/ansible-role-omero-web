@@ -10,11 +10,11 @@ on:
 jobs:
 
   list-scenarios:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.listscenarios.outputs.scenarios }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - id: listscenarios
         uses: ome/action-ansible-molecule-list-scenarios@main
 
