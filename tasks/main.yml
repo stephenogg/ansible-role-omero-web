@@ -2,23 +2,18 @@
 # tasks for omero-web
 
 - name: Include pre-tasks.yml
-  ansible.builtin.import_tasks:
-    file: pre_tasks.yml
+  ansible.builtin.import_tasks: pre_tasks.yml
 
 - name: Include web-dependencies.yml
-  ansible.builtin.import_tasks:
-    file: web-dependencies.yml
+  ansible.builtin.import_tasks: web-dependencies.yml
 
 - name: Include web-install-py3.yml
-  ansible.builtin.import_tasks:
-    file: web-install-py3.yml
+  ansible.builtin.import_tasks: web-install-py3.yml
 
 - name: Include web-systemd.yml
-  ansible.builtin.include_tasks:
-    file: web-systemd.yml
+  ansible.builtin.include_tasks: web-systemd.yml
   when: omero_web_systemd_setup
 
 - name: Include web-nginx.yml
-  ansible.builtin.include_tasks:
-    file: web-nginx.yml
+  ansible.builtin.include_tasks: web-nginx.yml
   when: omero_web_setup_nginx
