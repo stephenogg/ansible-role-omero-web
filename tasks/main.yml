@@ -14,11 +14,11 @@
     file: web-install-py3.yml
 
 - name: Include web-systemd.yml
-  ansible.builtin.import_tasks:
+  ansible.builtin.include_tasks:
     file: web-systemd.yml
   when: omero_web_systemd_setup
 
 - name: Include web-nginx.yml
-  ansible.builtin.import_tasks:
+  ansible.builtin.include_tasks:
     file: web-nginx.yml
   when: omero_web_setup_nginx
