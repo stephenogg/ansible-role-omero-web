@@ -11,7 +11,7 @@
 
 - name: omero-web restart omero-web
   become: true
-  service:
+  ansible.builtin.service:
     name: omero-web
     state: restarted
   when: omero_web_systemd_setup and omero_web_systemd_start

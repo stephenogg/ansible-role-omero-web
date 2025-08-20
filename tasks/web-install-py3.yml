@@ -19,7 +19,7 @@
 # Symlink ⇒ Old Python 2 installation: stop OMERO before doing anything else
 - name: omero web | stop omero web
   become: true
-  service:
+  ansible.builtin.service:
     name: omero-web
     state: stopped
   when: omero_web_symlink_st.stat.exists and omero_web_symlink_st.stat.islnk
@@ -97,7 +97,7 @@
 
 - name: omero web | setup virtualenv3
   become: true
-  pip:
+  ansible.builtin.pip:
     name: "pip>=21"
     state: present
     virtualenv: "{{ omero_web_virtualenv_basedir }}"
@@ -105,7 +105,7 @@
 
 - name: omero web | install tzdata
   become: true
-  pip:
+  ansible.builtin.pip:
     name: tzdata
     state: present
     virtualenv: "{{ omero_web_virtualenv_basedir }}"
@@ -116,7 +116,7 @@
 
 - name: omero web | install django_redis
   become: true
-  pip:
+  ansible.builtin.pip:
     name: django_redis
     state: present
     virtualenv: "{{ omero_web_virtualenv_basedir }}"
@@ -132,7 +132,7 @@
 # error it will be updated before a restart
 - name: omero web | install requirements
   become: true
-  pip:
+  ansible.builtin.pip:
     name: >-
       {{
         omero_web_python_requirements +

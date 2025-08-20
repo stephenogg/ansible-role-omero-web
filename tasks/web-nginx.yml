@@ -37,7 +37,7 @@
 
 - name: omero web | enable nginx
   become: true
-  service:
+  ansible.builtin.service:
     enabled: true
     name: nginx
     state: started
